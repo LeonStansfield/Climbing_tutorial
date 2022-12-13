@@ -38,4 +38,4 @@ directional_shadow_blend_splits = true
 directional_shadow_max_distance = 259.0
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2, 10 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2, 13.5 )
