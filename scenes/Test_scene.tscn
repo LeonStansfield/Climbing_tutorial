@@ -21,7 +21,7 @@ radial_segments = 32
 
 [node name="Walls" type="Spatial" parent="Environment"]
 
-[node name="wall2" type="CSGMesh" parent="Environment/Walls"]
+[node name="wall1" type="CSGMesh" parent="Environment/Walls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
 layers = 3
 use_collision = true
