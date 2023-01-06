@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/environment_assets/material.tres" type="Material" id=1]
 [ext_resource path="res://assets/player_assets/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/environment_assets/PNG/Light/texture_08.png" type="Texture" id=3]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_texture = ExtResource( 3 )
+uv1_triplanar = true
 
 [sub_resource type="CylinderMesh" id=1]
-material = ExtResource( 1 )
+material = SubResource( 2 )
 top_radius = 8.0
 bottom_radius = 8.0
 height = 15.0
@@ -38,4 +43,4 @@ directional_shadow_blend_splits = true
 directional_shadow_max_distance = 259.0
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2, 13.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82816, 15.35 )

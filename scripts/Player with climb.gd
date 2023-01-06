@@ -2,17 +2,17 @@ extends KinematicBody
 
 #movement variables
 var speed = 7
-export (float) var run_speed = 7
-export (float) var climb_speed = 3
+export (float) var run_speed = 7.0
+export (float) var climb_speed = 3.0
 
 #acceleration
-export (float) var  ACCEL_DEFAULT = 10
-export (float) var  ACCEL_AIR = 5
+export (float) var  ACCEL_DEFAULT = 10.0
+export (float) var  ACCEL_AIR = 5.0
 onready var accel = ACCEL_DEFAULT
 
 #jump
-export (float) var gravity = 30
-export (float) var jump = 15
+export (float) var gravity = 30.0
+export (float) var jump = 15.0
 
 #physics
 var player_velocity
@@ -74,7 +74,7 @@ func _process(delta):
 func _physics_process(delta):
 	input()
 	climbing()
-	movement(delta)
+	_movement(delta)
 
 func input():
 	#get keyboard input
@@ -85,7 +85,7 @@ func input():
 		var h_input = Input.get_action_strength("right") - Input.get_action_strength("left")
 		direction = Vector3(h_input, 0, f_input).rotated(Vector3.UP, h_rot).normalized()
 
-func jump():
+func _jump():
 	snap = Vector3.ZERO
 	gravity_vec = Vector3.UP * jump
 
@@ -98,15 +98,14 @@ func climbing():
 					is_climbing  = false
 				else:
 					is_climbing = true
-			elif Input.is_action_just_pressed("jump") || is_on_floor() || !Input.is_action_pressed("climb"):
+			else:
 				is_climbing = false
 		else:
 			#if player is at the top of a climb, boost them over the top
-			jump()
+			_jump()
 			yield(get_tree().create_timer(0.3), "timeout")
 			is_climbing = false
 	else:
-		#print("not climbing")
 		is_climbing = false
 	
 	
@@ -126,12 +125,12 @@ func climbing():
 		var rot = -(atan2(wall_check.get_collision_normal().z, wall_check.get_collision_normal().x) - PI/2)
 		var f_input = Input.get_action_strength("forward") - Input.get_action_strength("back")
 		var h_input = Input.get_action_strength("right") - Input.get_action_strength("left")
-		direction = Vector3(h_input, f_input, 0).rotated(Vector3.UP, rot).normalized() #+ (Vector3(mesh.rotation.x, 0, mesh.rotation.z)* 100)  #- another attempt to stick the player to the wayy
+		direction = Vector3(h_input, f_input, 0).rotated(Vector3.UP, rot).normalized() 
 	else:
 		speed = run_speed
 		gravity_enabled = true
 
-func movement(delta):
+func _movement(delta):
 	
 	#jumping and gravity
 	if is_on_floor():
@@ -147,7 +146,7 @@ func movement(delta):
 		
 	#jump
 	if Input.is_action_just_pressed("jump") :
-		jump()
+		_jump()
 	
 	#make it move#
 	if movement_enabled:

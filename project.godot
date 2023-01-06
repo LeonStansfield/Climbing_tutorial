@@ -51,6 +51,10 @@ jump={
  ]
 }
 
+[mono]
+
+project/assembly_name="Climbing_tutorial"
+
 [physics]
 
 common/enable_pause_aware_picking=true

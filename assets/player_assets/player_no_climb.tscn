@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scripts/Player with climb.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Player default.gd" type="Script" id=1]
 
-[sub_resource type="CapsuleMesh" id=3]
+[sub_resource type="CapsuleMesh" id=1]
 radius = 0.5
 mid_height = 1.2
 radial_segments = 32
@@ -11,38 +11,20 @@ radial_segments = 32
 radius = 0.5
 height = 1.2
 
-[node name="Player" type="KinematicBody"]
+[node name="player_no_climb" type="KinematicBody"]
 script = ExtResource( 1 )
 
 [node name="Player" type="Spatial" parent="."]
 
 [node name="mesh" type="CSGMesh" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
-mesh = SubResource( 3 )
+mesh = SubResource( 1 )
 
 [node name="CSGBox" type="CSGBox" parent="Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.5 )
 width = 0.5
 height = 0.5
 depth = 0.7
-
-[node name="Wall_check" type="Spatial" parent="Player"]
-
-[node name="wall_check" type="RayCast" parent="Player/Wall_check"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
-enabled = true
-cast_to = Vector3( 0, 0, -1 )
-
-[node name="still_on_wall_check" type="RayCast" parent="Player/Wall_check"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00539631, 0 )
-enabled = true
-cast_to = Vector3( 0, 0, -1 )
-
-[node name="Stick_point_holder" type="Position3D" parent="Player/Wall_check"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5 )
-
-[node name="Stick_point" type="Position3D" parent="Player/Wall_check/Stick_point_holder"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )

@@ -2,16 +2,16 @@ extends KinematicBody
 
 #movement variables
 var speed = 7
-export (float) var run_speed = 7
+export (float) var run_speed = 7.0
 
 #acceleration
-export (float) var  ACCEL_DEFAULT = 10
-export (float) var  ACCEL_AIR = 5
+export (float) var  ACCEL_DEFAULT = 10.0
+export (float) var  ACCEL_AIR = 5.0
 onready var accel = ACCEL_DEFAULT
 
 #jump
-export (float) var gravity = 30
-export (float) var jump = 15
+export (float) var gravity = 30.0
+export (float) var jump = 15.0
 
 #physics
 var player_velocity
@@ -56,13 +56,14 @@ func _input(event):
 
 func _process(delta):
 	#turns body in the direction of movement
-	mesh.rotation.y = lerp_angle(mesh.rotation.y, atan2(-direction.x, -direction.z), angular_velocity * delta)
+	if direction != Vector3.ZERO:
+		mesh.rotation.y = lerp_angle(mesh.rotation.y, atan2(-direction.x, -direction.z), angular_velocity * delta)
 
 	physics_interpolation(delta)
 
 func _physics_process(delta):
 	input()
-	movement(delta)
+	_movement(delta)
 
 func input():
 	#get keyboard input
@@ -72,11 +73,11 @@ func input():
 	var h_input = Input.get_action_strength("right") - Input.get_action_strength("left")
 	direction = Vector3(h_input, 0, f_input).rotated(Vector3.UP, h_rot).normalized()
 
-func jump():
+func _jump():
 	snap = Vector3.ZERO
 	gravity_vec = Vector3.UP * jump
 
-func movement(delta):
+func _movement(delta):
 	
 	#jumping and gravity
 	if is_on_floor():
@@ -92,7 +93,7 @@ func movement(delta):
 		
 	#jump
 	if Input.is_action_just_pressed("jump") :
-		jump()
+		_jump()
 	
 	#make it move#
 	if movement_enabled:
